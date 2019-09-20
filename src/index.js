@@ -5,6 +5,7 @@ const app = express();
 app.get('/:endpoint', function (req, res) {
   console.log('endpoint', req.params.endpoint);
   try {
+    delete require.cache[`../functions/${req.params.endpoint}`];
     const endpoint = require(`../functions/${req.params.endpoint}`);
     endpoint(req, res);
   } catch(e) {
